@@ -6,13 +6,10 @@ import { Document } from 'mongoose';
 
 @Schema({ timestamps: true })
 export class User {
-  @Prop()
-  id?: string;
-
   @Prop({ type: String, unique: true })
   email: string;
 
-  @Prop()
+  @Prop({ select: false })
   password: string;
 
   @Prop({ type: Boolean, default: false })

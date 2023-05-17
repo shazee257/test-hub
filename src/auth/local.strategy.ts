@@ -22,11 +22,9 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     if (!body.fcmToken)
       throw new HttpException('fcmToken is required', HttpStatus.BAD_REQUEST);
 
-    const user: User = await this.userService.findUser({ email });
+    const user: any = await this.userService.findUser({ email });
     if (!user) throw new UnauthorizedException();
 
-    console.log('user >>>>', user);
-    console.log('user.password >>', user.password);
     // password verify
     const passwordMatch = comparePassword(password, user.password);
     if (!passwordMatch)
@@ -35,10 +33,8 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
         message: 'Password is incorrect',
       });
 
-    console.log('body.fcmToken >>>>', body.fcmToken);
-
     // update fcm token
-    const updateUser = this.userService.saveFcmToken(user.id, body.fcmToken);
+    const updateUser = this.userService.saveFcmToken(user._id, body.fcmToken);
     if (!updateUser)
       throw new HttpException(
         'Something went wrong',

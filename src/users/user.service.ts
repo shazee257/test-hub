@@ -38,7 +38,7 @@ export class UserService {
 
   async findUser(query: {}): Promise<User> {
     try {
-      return await this.userModel.findOne(query).select('-password').exec();
+      return await this.userModel.findOne(query).select('+password').exec();
     } catch (error) {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
