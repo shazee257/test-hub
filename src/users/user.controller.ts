@@ -36,7 +36,8 @@ export class UserController {
     return this.userService.findUser({ _id: req.user.id });
   }
 
-  @Put('/update/me')
+  @Post('/update/me')
+  @UseInterceptors(FileInterceptor(''))
   @UseGuards(AuthGuard('jwt'))
   updateUser(@Req() req, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.updateUser(req.user.id, updateUserDto);

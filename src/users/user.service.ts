@@ -60,7 +60,7 @@ export class UserService {
     return await newUser.save();
   }
 
-  async updateUser(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+  async updateUser(id: string, updateUserDto: UpdateUserDto): Promise<any> {
     const user = await this.userModel.findById(id).exec();
     if (!user) {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
@@ -68,15 +68,17 @@ export class UserService {
 
     const obj: any = {
       ...updateUserDto,
-      location: {
-        type: 'Point',
-        coordinates: [updateUserDto.longitude, updateUserDto.latitude],
-      },
+    location: {
+      type: 'Point',
+      coordinates: [updateUserDto.longitude, updateUserDto.latitude],
+    },
     };
 
-    const updatedUser = await this.userModel.findByIdAndUpdate(id, obj, {
-      new: true,
-    });
+    const updatedUser = await this.userModel.findByIdAndUpdate(
+      id,
+      { $set: obj },
+      { new: true },
+    );
 
     return updatedUser;
   }

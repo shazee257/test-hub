@@ -29,71 +29,48 @@ export class CreateUserDto {
 
 // update user dto
 export class UpdateUserDto {
+  @IsEmail()
   @IsNotEmpty()
-  fullName: string;
+  email: string;
 
   @IsNotEmpty()
-  businessName: string;
+  hiddenEmail: boolean;
+
+  @IsString()
+  firstName: string;
+
+  @IsString()
+  lastName: string;
 
   @IsNotEmpty()
-  mobile: string;
+  hiddenLastName: boolean;
+
+  @IsNotEmpty()
+  @IsString()
+  username: string;
+
+  @IsString()
+  about: string;
 
   @IsNotEmpty()
   dob: Date;
 
   @IsNotEmpty()
-  url: string;
+  @IsString()
+  latitude: string;
+
+  @IsNotEmpty()
+  @IsString()
+  longitude: string;
 
   @IsString()
-  @IsNotEmpty()
-  gender: string;
+  mobile: string;
 
   @IsNotEmpty()
-  @IsNumber()
-  @Min(-90)
-  @Max(90)
-  latitude: number;
+  hiddenMobile: boolean;
 
-  @IsNotEmpty()
-  @IsNumber()
-  @Min(-180)
-  @Max(180)
-  longitude: number;
-
-  // working days
-  @IsNotEmpty()
-  workingDays: {
-    Monday: {
-      ON: boolean;
-      startTime: string;
-      endTime: string;
-    };
-    Tuesday: {
-      ON: boolean;
-      startTime: string;
-      endTime: string;
-    };
-    Wednesday: {
-      ON: boolean;
-      startTime: string;
-      endTime: string;
-    };
-    Thursday: {
-      ON: boolean;
-      startTime: string;
-      endTime: string;
-    };
-    Friday: {
-      ON: boolean;
-      startTime: string;
-      endTime: string;
-    };
-    Saturday: {
-      ON: boolean;
-      startTime: string;
-      endTime: string;
-    };
-  };
+  @IsString()
+  language: string;
 }
 
 export class ResetPasswordDto {
